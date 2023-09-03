@@ -54,6 +54,8 @@
 
 <meta name="generator" content="Hugo Eureka {{ .Site.Data.eureka.version }}" />
 
+{{ partial "twittercard.html" . }}
+
 {{- $eurekaCSS := resources.Get "css/eureka.css" | postCSS (dict "config" "./assets/css/postcss.config.js" "inlineImports" true) | resources.ExecuteAsTemplate "css/eureka.css" . | minify | fingerprint "sha384" }}
 <link rel="stylesheet" href="{{ $eurekaCSS.Permalink }}">
 
