@@ -3,12 +3,16 @@
 
 
 {{ if .IsPage }}
-{{ with .Resources.GetMatch "**.jpg" }}
-    <meta property="og:image" content="{{ .RelPermalink }}">
+{{ if .Params.featuredImage }}
+    <meta property="og:image" content="{{ .Params.featuredImage | absURL }}">
 {{ else }}
-    {{ $icon := partial "utils/get-image" (dict "context" . "url" .Site.Params.icon) }}
-    {{ with $icon }}
-    <meta property="og:image" content="{{ . }}">
+    {{ with .Resources.GetMatch "**.jpg" }}
+        <meta property="og:image" content="{{ .RelPermalink }}">
+    {{ else }}
+        {{ $icon := partial "utils/get-image" (dict "context" . "url" .Site.Params.icon) }}
+        {{ with $icon }}
+        <meta property="og:image" content="{{ . }}">
+        {{ end }}
     {{ end }}
 {{ end }}
 {{ else }}
